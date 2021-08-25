@@ -1,7 +1,6 @@
 import React from 'react';
-import { MemoryRouter, Router } from 'react-router';
+import { MemoryRouter } from 'react-router';
 import { render, screen } from '@testing-library/react';
-import { createMemoryHistory } from 'history';
 import userEvent from '@testing-library/user-event';
 import App from '../App';
 import pokemons from '../data';
@@ -16,11 +15,12 @@ test('It renders the details', () => {
 
   // click more details
   userEvent.click(moreDetailsLinkEl);
-  const pokemonNameEl = screen.getByText(`${pokemons[0].name} Details`); // eslint-disable-line
+  const pokemonNameEl = screen.getByText(`${pokemons[0].name} Details`);
   moreDetailsLinkEl = screen.queryByRole('link', {
     name: /more details/i,
   });
   expect(moreDetailsLinkEl).not.toBeInTheDocument();
+  expect(pokemonNameEl).toBeInTheDocument();
 
   const summaryTextEl = screen.getByRole('heading', {
     level: 2,
